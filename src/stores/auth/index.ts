@@ -1,13 +1,7 @@
 // TODO: Add zustand persist middleware
 import { create } from "zustand"
+import type { AuthState, Password, User, Username } from "./interface"
 
-type Username = string
-type Password = string
-
-type User = {
-    username: Username;
-    password: Password
-}
 
 
 
@@ -15,15 +9,6 @@ const defaultUsers: User[] = [
     { username: "demo@example.com", password: "password123" },
     { username: "test@user.com", password: "testpass" }
 ]
-
-
-type AuthState = {
-    users: User[];
-    loggedInUser: User | null
-    signUp: (username: Username, password: Password, retypePassword: Password) => void
-    signIn: (username: Username, password: Password) => void
-}
-
 
 const useAuthStore = create<AuthState>()((set, get) => ({
     users: defaultUsers,

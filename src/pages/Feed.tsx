@@ -1,10 +1,13 @@
-import BorderWithFooterContent from "../components/atomic/BorderWithFooterContent";
+import PostsList from "../components/PostsList";
+import useFeedStore from "../stores/feed";
 
 
 const FeedPage = () => {
-    return (<><BorderWithFooterContent footerContent={<div>Yo</div>}>
-        HI
-    </BorderWithFooterContent>
+    const { posts } = useFeedStore()
+    return (<>
+        <div className="w-full flex flex-col gap-4 items-center">
+            <PostsList posts={posts} />
+        </div>
     </>);
 }
 

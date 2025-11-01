@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router';
 import { ReactComponent as Logo } from '../assets/logo.svg'
-import { ReactComponent as Login } from '../assets/login.svg'
+import { ReactComponent as Login } from '../assets/icons/login.svg'
 
 function Layout() {
     const location = useLocation()

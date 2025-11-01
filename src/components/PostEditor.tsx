@@ -4,17 +4,24 @@ import IconButton from './atomic/IconButton';
 import { AddIcon, MicIcon, CameraIcon, PublishIcon, EmojiIcon, BinIcon, TextBoldIcon, TextItalicIcon, TextUnderlinedIcon, ListOrderedIcon, ListUnorderedIcon, ScriptsIcon, QuotesIcon } from '../assets/icons'
 import useFeedStore from '../stores/feed';
 import { noOp } from '../utils';
+import useAuthStore from '../stores/auth';
 
 
 const PostEditor = () => {
     const [emoji, setEmoji] = useState("")
     const [content, setContent] = useState("")
+    const { loggedInUser, setIsAuthPopupOpen } = useAuthStore()
     const clearEditor = () => {
         setEmoji("")
         setContent("")
     }
 
     const cycleEmojis = () => {
+        if (!loggedInUser) {
+            setIsAuthPopupOpen(true)
+            return
+        }
+
         const emojis = ["🥴", "🤞", "💀", "😍", "😂"]
         const currIndex = emojis.findIndex(emojiOption => emojiOption == emoji)
         setEmoji(emojis[(currIndex + 1) % emojis.length])
@@ -23,10 +30,22 @@ const PostEditor = () => {
     const { createPost } = useFeedStore()
 
     const publishPost = () => {
+        if (!loggedInUser) {
+            setIsAuthPopupOpen(true)
+            return
+        }
         if (!content) return
         createPost(content, emoji)
         setContent("")
         setEmoji("")
+    }
+
+    const onTextboxChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+        if (!loggedInUser) {
+            setIsAuthPopupOpen(true)
+            return
+        }
+        setContent(e.target.value)
     }
     return (
         <BorderWithFooterContent size='xl'>
@@ -89,7 +108,7 @@ const PostEditor = () => {
                             rows={4}
                             placeholder="How are you feeling today?"
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            onChange={onTextboxChange}
                         ></textarea>
 
                     </div>

@@ -8,11 +8,11 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, closeDialog, children }) => {
 
     return (
         <div
-            className="fixed inset-0 bg-black/45 flex justify-center items-center z-50"
+            className="fixed inset-0 bg-black/45 flex justify-center items-center z-50 "
             onClick={closeDialog}
         >
             <div
-                className="bg-white max-w-lg w-full rounded-lg shadow-lg"
+                className="bg-white max-w-lg w-full rounded-lg shadow-lg transform transition-all duration-500 animate-grow-in"
                 onClick={(e) => e.stopPropagation()} // Prevent closing the modal if clicking inside it
             >
                 {children}

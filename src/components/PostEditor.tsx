@@ -3,10 +3,9 @@ import BorderWithFooterContent from './atomic/BorderWithFooterContent';
 import IconButton from './atomic/IconButton';
 import { AddIcon, MicIcon, CameraIcon, PublishIcon, EmojiIcon, BinIcon, TextBoldIcon, TextItalicIcon, TextUnderlinedIcon, ListOrderedIcon, ListUnorderedIcon, ScriptsIcon, QuotesIcon } from '../assets/icons'
 import useFeedStore from '../stores/feed';
+import { noOp } from '../utils';
 
-const noOp = () => {
-    alert("function not implemented")
-}
+
 const PostEditor = () => {
     const [emoji, setEmoji] = useState("")
     const [content, setContent] = useState("")
@@ -35,7 +34,7 @@ const PostEditor = () => {
                 <div className='p-2.5'>
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex bg-gray-100 items-center gap-4 rounded-lg py-1 pl-1.5 pr-4">
-                            <select onClick={noOp} className="bg-white text-gray-700 p-2 rounded md">
+                            <select onClick={noOp} className="bg-white text-gray-700 p-1 rounded md">
                                 <option>Paragraph</option>
                                 <option>Heading 1</option>
                                 <option>Heading 2</option>

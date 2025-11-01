@@ -11,10 +11,12 @@ export type Post = {
     emoji: string
     author: Author
     created_at: number
+    liked: boolean
 }
 
 export type FeedState = {
     posts: Post[]
     nextPostId: number
     createPost: (content: string, emoji: string) => void
+    likePost: (id: number) => void
 }

@@ -1,13 +1,15 @@
-import type { Post } from "../stores/feed/interface"
+import type { Post as TPost } from "../stores/feed/interface"
 import BorderWithFooterContent from "./atomic/BorderWithFooterContent"
-import { CommentIcon, EmojiIcon, HeartIcon, ShareIcon } from "../assets/icons"
+import { CommentIcon, EmojiIcon, HeartFilledIcon, HeartIcon, ShareIcon } from "../assets/icons"
 import { formatDistanceToNow } from "date-fns"
 import useAuthStore from "../stores/auth"
 import IconButton from "./atomic/IconButton"
 import { useEffect, useState } from "react"
+import useFeedStore from "../stores/feed"
+import { noOp } from "../utils"
 
 interface PostProps {
-    post: Post
+    post: TPost
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
@@ -15,7 +17,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setVisible(true), 10); // small delay to trigger transition
+        const timer = setTimeout(() => setVisible(true), 10);
         return () => clearTimeout(timer);
     }, []);
 
@@ -23,7 +25,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
         w-xl`}>
 
-        <BorderWithFooterContent footerContent={<PostFooterContent />} size="xl">
+        <BorderWithFooterContent footerContent={<PostFooterContent post={post} />} size="xl">
             <div className="p-3 grid grid-rows-[37px_auto] grid-cols-[37px_auto] gap-[10px] pb-5 border rounded-xl border-neutral-200 ">
                 <img src={post.author.profile_image} className="w-[37px] h-[37px] object-cover rounded-sm" alt={`${post.author.name} profile image`} />
                 <div className="flex flex-col ">
@@ -41,18 +43,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
     </div>
 
 }
-
-const PostFooterContent = () => {
-    const { setIsAuthPopupOpen } = useAuthStore()
+const PostFooterContent: React.FC<PostProps> = ({ post }) => {
+    const { loggedInUser, setIsAuthPopupOpen } = useAuthStore()
+    const { likePost } = useFeedStore()
     const showSigninPopup = () => setIsAuthPopupOpen(true)
     return <div className="flex flex-row gap-3.5 p-1 pb-0">
-        <IconButton onClick={showSigninPopup}>
-            <HeartIcon />
+        <IconButton onClick={loggedInUser ? () => likePost(post.id) : showSigninPopup}>
+            {post.liked ? <HeartFilledIcon /> : <HeartIcon />}
         </IconButton>
-        <IconButton onClick={showSigninPopup}>
+        <IconButton onClick={loggedInUser ? noOp : showSigninPopup}>
             <CommentIcon />
         </IconButton>
-        <IconButton onClick={showSigninPopup}>
+        <IconButton onClick={loggedInUser ? noOp : showSigninPopup}>
             <ShareIcon />
         </IconButton>
 

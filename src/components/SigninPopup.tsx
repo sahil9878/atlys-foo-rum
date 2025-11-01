@@ -16,6 +16,7 @@ const SigninPopup = () => {
         try {
             signUp(username, password, retypePassword)
             setShowSignupPage(false)
+            setError("")
         } catch (e) {
             const error = e as Error
             setError(error.message)
@@ -24,7 +25,8 @@ const SigninPopup = () => {
     const handleSignin = (username: Username, password: Password) => {
         try {
             signIn(username, password)
-            setShowSignupPage(false)
+            setIsAuthPopupOpen(false)
+            setError("")
         } catch (e) {
             const error = e as Error
             setError(error.message)

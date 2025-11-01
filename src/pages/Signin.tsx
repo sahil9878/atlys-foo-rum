@@ -1,12 +1,10 @@
 import SigninForm from "../components/SigninForm";
-import useAuthStore from "../stores/auth";
 
-function SigninPage() {
-    const { signIn } = useAuthStore();
-
-
+const SigninPage = () => {
     return (<>
-        <SigninForm />
+        <div className="w-full h-full md:pt-10 flex justify-center">
+            <SigninForm />
+        </div>
     </>);
 }
 

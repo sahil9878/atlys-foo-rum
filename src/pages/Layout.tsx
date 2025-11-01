@@ -16,7 +16,7 @@ function Layout() {
                 </Link>
 
                 <Link to={isHomePage ? "/signin" : "/"}>
-                    <div className='font-semibold text-sm flex flex-row items-center gap-1 pt-1'>
+                    <div className='font-semibold text-sm flex flex-row items-center gap-1 h-full'>
                         {
                             isHomePage ?
                                 <>Login<Login /></> :

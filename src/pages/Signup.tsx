@@ -1,8 +1,11 @@
 import SignupForm from "../components/SignupForm";
 
-function SignupPage() {
+const SignupPage = () => {
     return (<>
-        <SignupForm /></>);
+        <div className="w-full h-full md:pt-10 flex justify-center">
+            <SignupForm />
+        </div>
+    </>);
 }
 
 export default SignupPage;

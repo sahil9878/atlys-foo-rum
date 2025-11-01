@@ -1,3 +1,4 @@
+import PostEditor from "../components/PostEditor";
 import PostsList from "../components/PostsList";
 import SigninPopup from "../components/SigninPopup";
 import useFeedStore from "../stores/feed";
@@ -8,6 +9,7 @@ const FeedPage = () => {
 
     return (<>
         <div className="w-full flex flex-col gap-4 items-center">
+            <PostEditor />
             <PostsList posts={posts} />
         </div>
         <SigninPopup />

@@ -1,8 +1,6 @@
 import type { Post } from "../stores/feed/interface"
 import BorderWithFooterContent from "./atomic/BorderWithFooterContent"
-import { ReactComponent as Heart } from "../assets/icons/heart.svg"
-import { ReactComponent as Comment } from "../assets/icons/comment.svg"
-import { ReactComponent as Share } from "../assets/icons/share.svg"
+import { CommentIcon, HeartIcon, ShareIcon } from "../assets/icons"
 import { formatDistanceToNow } from "date-fns"
 import useAuthStore from "../stores/auth"
 import IconButton from "./atomic/IconButton"
@@ -32,15 +30,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
 const PostFooterContent = () => {
     const { setIsAuthPopupOpen } = useAuthStore()
     const showSigninPopup = () => setIsAuthPopupOpen(true)
-    return <div className="flex flex-row gap-6 p-1 pb-0">
+    return <div className="flex flex-row gap-3.5 p-1 pb-0">
         <IconButton onClick={showSigninPopup}>
-            <Heart />
+            <HeartIcon />
         </IconButton>
         <IconButton onClick={showSigninPopup}>
-            <Comment />
+            <CommentIcon />
         </IconButton>
         <IconButton onClick={showSigninPopup}>
-            <Share />
+            <ShareIcon />
         </IconButton>
 
     </div>

@@ -1,4 +1,4 @@
-import { ReactComponent as Login } from '../assets/icons/login.svg'
+import { LoginIcon } from '../assets/icons'
 import BorderWithFooterContent from './atomic/BorderWithFooterContent';
 
 interface LoginFormSkeletonProps {
@@ -21,7 +21,7 @@ const LoginFormSkeleton: React.FC<LoginFormSkeletonProps> = ({
 
                 <div className="flex justify-center">
                     <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center border border-gray-200">
-                        <Login />
+                        <LoginIcon />
                     </div>
                 </div>
                 <h2 className="text-center text-xl font-semibold mt-5">{title}</h2>

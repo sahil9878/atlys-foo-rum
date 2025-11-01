@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router';
-import { ReactComponent as Logo } from '../assets/logo.svg'
-import { ReactComponent as Login } from '../assets/icons/login.svg'
+import { LoginIcon, Logo } from '../assets/icons'
+
 
 function Layout() {
     const location = useLocation()
@@ -19,7 +19,7 @@ function Layout() {
                     <div className='font-semibold text-sm flex flex-row items-center gap-1 h-full'>
                         {
                             isHomePage ?
-                                <>Login<Login /></> :
+                                <>Login<LoginIcon /></> :
                                 "Back to home"
                         }
 

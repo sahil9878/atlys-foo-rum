@@ -13,6 +13,10 @@ const defaultUsers: User[] = [
 const useAuthStore = create<AuthState>()((set, get) => ({
     users: defaultUsers,
     loggedInUser: null,
+    isAuthPopupOpen: false,
+    setIsAuthPopupOpen: (isOpen) => {
+        set({ isAuthPopupOpen: isOpen })
+    },
     signUp: (username: Username, password: Password, retypePassword: Password) => {
         if (password !== retypePassword) {
             throw new Error("Passwords no not match")

@@ -4,6 +4,8 @@ import { ReactComponent as Heart } from "../assets/icons/heart.svg"
 import { ReactComponent as Comment } from "../assets/icons/comment.svg"
 import { ReactComponent as Share } from "../assets/icons/share.svg"
 import { formatDistanceToNow } from "date-fns"
+import useAuthStore from "../stores/auth"
+import IconButton from "./atomic/IconButton"
 
 interface PostProps {
     post: Post
@@ -11,7 +13,7 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
     return <BorderWithFooterContent footerContent={<PostFooterContent />} size="xl">
-        <div className="p-3 grid grid-rows-[37px_auto] grid-cols-[37px_auto] gap-[10px] pb-5">
+        <div className="p-3 grid grid-rows-[37px_auto] grid-cols-[37px_auto] gap-[10px] pb-5 border rounded-xl border-neutral-200 ">
             <img src={post.author.profile_image} className="w-[37px] h-[37px] object-cover rounded-sm" alt={`${post.author.name} profile image`} />
             <div className="flex flex-col ">
                 <div className="font-semibold text-[13]">{post.author.name}</div>
@@ -28,10 +30,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
 }
 
 const PostFooterContent = () => {
-    return <div className="flex flex-row gap-6 p-2 pb-1">
-        <Heart />
-        <Comment />
-        <Share />
+    const { setIsAuthPopupOpen } = useAuthStore()
+    const showSigninPopup = () => setIsAuthPopupOpen(true)
+    return <div className="flex flex-row gap-6 p-1 pb-0">
+        <IconButton onClick={showSigninPopup}>
+            <Heart />
+        </IconButton>
+        <IconButton onClick={showSigninPopup}>
+            <Comment />
+        </IconButton>
+        <IconButton onClick={showSigninPopup}>
+            <Share />
+        </IconButton>
 
     </div>
 }

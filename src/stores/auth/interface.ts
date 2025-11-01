@@ -10,4 +10,6 @@ export type AuthState = {
     loggedInUser: User | null
     signUp: (username: Username, password: Password, retypePassword: Password) => void
     signIn: (username: Username, password: Password) => void
+    isAuthPopupOpen: boolean
+    setIsAuthPopupOpen: (isOpen: boolean) => void
 }

@@ -4,27 +4,42 @@ import { CommentIcon, EmojiIcon, HeartIcon, ShareIcon } from "../assets/icons"
 import { formatDistanceToNow } from "date-fns"
 import useAuthStore from "../stores/auth"
 import IconButton from "./atomic/IconButton"
+import { useEffect, useState } from "react"
 
 interface PostProps {
     post: Post
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-    return <BorderWithFooterContent footerContent={<PostFooterContent />} size="xl">
-        <div className="p-3 grid grid-rows-[37px_auto] grid-cols-[37px_auto] gap-[10px] pb-5 border rounded-xl border-neutral-200 ">
-            <img src={post.author.profile_image} className="w-[37px] h-[37px] object-cover rounded-sm" alt={`${post.author.name} profile image`} />
-            <div className="flex flex-col ">
-                <div className="font-semibold text-[13]">{post.author.name}</div>
-                <div className="font-medium text-xs">{formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}</div>
+
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setVisible(true), 10); // small delay to trigger transition
+        return () => clearTimeout(timer);
+    }, []);
+
+    return <div className={`transition-all duration-500 ease-out transform
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
+        w-xl`}>
+
+        <BorderWithFooterContent footerContent={<PostFooterContent />} size="xl">
+            <div className="p-3 grid grid-rows-[37px_auto] grid-cols-[37px_auto] gap-[10px] pb-5 border rounded-xl border-neutral-200 ">
+                <img src={post.author.profile_image} className="w-[37px] h-[37px] object-cover rounded-sm" alt={`${post.author.name} profile image`} />
+                <div className="flex flex-col ">
+                    <div className="font-semibold text-[13]">{post.author.name}</div>
+                    <div className="font-medium text-xs">{formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}</div>
+                </div>
+                <div className="h-7.5 w-7.5 text-xl text-center bg-neutral-100 rounded-3xl py-[1px] flex justify-center items-center ">
+                    {post.emoji ? post.emoji : <EmojiIcon />}
+                </div>
+                <div className="text-sm font-medium">
+                    {post.content}
+                </div>
             </div>
-            <div className="h-7.5 w-7.5 text-xl text-center bg-neutral-100 rounded-3xl py-[1px] flex justify-center items-center ">
-                {post.emoji ? post.emoji : <EmojiIcon />}
-            </div>
-            <div className="text-sm font-medium">
-                {post.content}
-            </div>
-        </div>
-    </BorderWithFooterContent>
+        </BorderWithFooterContent>
+    </div>
+
 }
 
 const PostFooterContent = () => {

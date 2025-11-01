@@ -24,6 +24,7 @@ const PostEditor = () => {
     const { createPost } = useFeedStore()
 
     const publishPost = () => {
+        if (!content) return
         createPost(content, emoji)
         setContent("")
         setEmoji("")
@@ -110,7 +111,7 @@ const PostEditor = () => {
                             <CameraIcon />
                         </IconButton>
                     </div>
-                    <IconButton onClick={publishPost}>
+                    <IconButton disabled={!content} onClick={publishPost}>
                         <PublishIcon />
                     </IconButton>
                 </div>

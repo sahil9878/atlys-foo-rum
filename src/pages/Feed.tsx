@@ -8,7 +8,7 @@ const FeedPage = () => {
     const { posts } = useFeedStore()
 
     return (<>
-        <div className="w-full flex flex-col gap-4 items-center">
+        <div className="w-full flex flex-col gap-4 items-center pb-10">
             <PostEditor />
             <PostsList posts={posts} />
         </div>

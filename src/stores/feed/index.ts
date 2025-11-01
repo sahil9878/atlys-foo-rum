@@ -2,7 +2,6 @@ import { create } from "zustand";
 import type { FeedState, Post } from "./interface";
 
 
-let nextPost = 4
 const POSTS_INIT_STATE: Post[] = [
     {
         id: 1,
@@ -37,7 +36,19 @@ const POSTS_INIT_STATE: Post[] = [
 ]
 
 const useFeedStore = create<FeedState>()((set, get) => ({
-    posts: POSTS_INIT_STATE
+    posts: POSTS_INIT_STATE,
+    nextPostId: 4,
+    createPost: (content: string, emoji: string) => {
+        const { posts, nextPostId } = get()
+        const newPost: Post = {
+            id: nextPostId,
+            author: { name: "John Doe", profile_image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070" },
+            content,
+            emoji,
+            created_at: Date.now()
+        }
+        set({ posts: [newPost, ...posts], nextPostId: nextPostId + 1 })
+    }
 }))
 
 export default useFeedStore

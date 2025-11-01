@@ -2,6 +2,7 @@ import { useState } from 'react';
 import BorderWithFooterContent from './atomic/BorderWithFooterContent';
 import IconButton from './atomic/IconButton';
 import { AddIcon, MicIcon, CameraIcon, PublishIcon, EmojiIcon, BinIcon, TextBoldIcon, TextItalicIcon, TextUnderlinedIcon, ListOrderedIcon, ListUnorderedIcon, ScriptsIcon, QuotesIcon } from '../assets/icons'
+import useFeedStore from '../stores/feed';
 
 const noOp = () => {
     alert("function not implemented")
@@ -18,6 +19,14 @@ const PostEditor = () => {
         const emojis = ["🥴", "🤞", "💀", "😍", "😂"]
         const currIndex = emojis.findIndex(emojiOption => emojiOption == emoji)
         setEmoji(emojis[(currIndex + 1) % emojis.length])
+    }
+
+    const { createPost } = useFeedStore()
+
+    const publishPost = () => {
+        createPost(content, emoji)
+        setContent("")
+        setEmoji("")
     }
     return (
         <BorderWithFooterContent size='xl'>
@@ -101,7 +110,7 @@ const PostEditor = () => {
                             <CameraIcon />
                         </IconButton>
                     </div>
-                    <IconButton onClick={noOp}>
+                    <IconButton onClick={publishPost}>
                         <PublishIcon />
                     </IconButton>
                 </div>

@@ -1,6 +1,6 @@
 import type { Post } from "../stores/feed/interface"
 import BorderWithFooterContent from "./atomic/BorderWithFooterContent"
-import { CommentIcon, HeartIcon, ShareIcon } from "../assets/icons"
+import { CommentIcon, EmojiIcon, HeartIcon, ShareIcon } from "../assets/icons"
 import { formatDistanceToNow } from "date-fns"
 import useAuthStore from "../stores/auth"
 import IconButton from "./atomic/IconButton"
@@ -17,8 +17,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
                 <div className="font-semibold text-[13]">{post.author.name}</div>
                 <div className="font-medium text-xs">{formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}</div>
             </div>
-            <div className="h-7.5 w-7.5 text-xl text-center bg-neutral-100 rounded-3xl py-[1px] ">
-                {post.emoji}
+            <div className="h-7.5 w-7.5 text-xl text-center bg-neutral-100 rounded-3xl py-[1px] flex justify-center items-center ">
+                {post.emoji ? post.emoji : <EmojiIcon />}
             </div>
             <div className="text-sm font-medium">
                 {post.content}

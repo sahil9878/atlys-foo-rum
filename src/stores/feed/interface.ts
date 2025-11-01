@@ -15,4 +15,6 @@ export type Post = {
 
 export type FeedState = {
     posts: Post[]
+    nextPostId: number
+    createPost: (content: string, emoji: string) => void
 }
